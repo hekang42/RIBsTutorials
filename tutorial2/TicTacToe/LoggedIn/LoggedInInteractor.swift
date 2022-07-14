@@ -2,7 +2,7 @@
 //  LoggedInInteractor.swift
 //  TicTacToe
 //
-//  Created by A11548 on 2022/07/13.
+//  Created by A11548 on 2022/07/14.
 //  Copyright © 2022 Uber. All rights reserved.
 //
 
@@ -11,11 +11,6 @@ import RxSwift
 
 protocol LoggedInRouting: Routing {
     func cleanupViews()
-
-    func routeToTicTacToe()
-//    func attachOffGame()
-    func routeToOffGame()
-
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
@@ -24,10 +19,6 @@ protocol LoggedInListener: AnyObject {
 }
 
 final class LoggedInInteractor: Interactor, LoggedInInteractable {
-    func gameDidEnd() {
-        router?.routeToOffGame()
-    }
-
 
     weak var router: LoggedInRouting?
     weak var listener: LoggedInListener?
@@ -46,9 +37,5 @@ final class LoggedInInteractor: Interactor, LoggedInInteractable {
 
         router?.cleanupViews()
         // TODO: Pause any business logic.
-    }
-
-    func startTicTacToe() {
-        router?.routeToTicTacToe()
     }
 }

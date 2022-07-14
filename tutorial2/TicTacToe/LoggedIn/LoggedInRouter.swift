@@ -2,13 +2,13 @@
 //  LoggedInRouter.swift
 //  TicTacToe
 //
-//  Created by A11548 on 2022/07/13.
+//  Created by A11548 on 2022/07/14.
 //  Copyright © 2022 Uber. All rights reserved.
 //
 
 import RIBs
 
-protocol LoggedInInteractable: Interactable, OffGameListener, TicTacToeListener {
+protocol LoggedInInteractable: Interactable, OffGameListener {
     var router: LoggedInRouting? { get set }
     var listener: LoggedInListener? { get set }
 }
@@ -27,18 +27,11 @@ final class LoggedInRouter: Router<LoggedInInteractable>, LoggedInRouting {
     // TODO: Constructor inject child builder protocols to allow building children.
     init(interactor: LoggedInInteractable,
          viewController: LoggedInViewControllable,
-         offGameBuilder: OffGameBuildable,
-         ticTacToeBuilder: TicTacToeBuildable) {
+         offgameBuilder: OffGameBuildable) {
         self.viewController = viewController
-        self.offGameBuilder = offGameBuilder
-        self.tictactoeBuilder = ticTacToeBuilder
+        self.offGameBuilder = offgameBuilder
         super.init(interactor: interactor)
         interactor.router = self
-    }
-
-    override func didLoad() {
-        super.didLoad()
-        attachOffGame()
     }
 
     func cleanupViews() {
@@ -54,37 +47,18 @@ final class LoggedInRouter: Router<LoggedInInteractable>, LoggedInRouting {
 
     private let viewController: LoggedInViewControllable
     private let offGameBuilder: OffGameBuildable
-    private let tictactoeBuilder: TicTacToeBuildable
+
     private var currentChild: ViewableRouting?
 
-    func attachOffGame() {
+    private func attachOffGame() {
         let offGame = offGameBuilder.build(withListener: interactor)
         self.currentChild = offGame
         attachChild(offGame)
         viewController.present(viewController: offGame.viewControllable)
     }
 
-    func attachTicTacToe() {
-        let tictactoe = tictactoeBuilder.build(withListener: interactor)
-        self.currentChild = tictactoe
-        attachChild(tictactoe)
-        viewController.present(viewController: tictactoe.viewControllable)
-    }
-
-    func routeToOffGame() {
-        detachCurrentChild()
+    override func didLoad() {
+        super.didLoad()
         attachOffGame()
-    }
-
-    func routeToTicTacToe() {
-        detachCurrentChild()
-        attachTicTacToe()
-    }
-
-    private func detachCurrentChild() {
-        if let currentChild = currentChild {
-            detachChild(currentChild)
-            viewController.dismiss(viewController: currentChild.viewControllable)
-        }
     }
 }

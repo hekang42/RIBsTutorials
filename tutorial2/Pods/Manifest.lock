@@ -11,9 +11,9 @@ PODS:
   - SnapKit (4.0.1)
 
 DEPENDENCIES:
-  - RIBs (from `../../../`)
-  - RxCocoa (~> 6.0)
-  - SnapKit (~> 4.0.0)
+  - RIBs (from `https://github.com/uber/RIBs.git`, branch `main`)
+  - RxCocoa
+  - SnapKit
 
 SPEC REPOS:
   trunk:
@@ -24,7 +24,13 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   RIBs:
-    :path: "../../../"
+    :branch: main
+    :git: https://github.com/uber/RIBs.git
+
+CHECKOUT OPTIONS:
+  RIBs:
+    :commit: 0b0948a68f4836f504a09529176e8da90909f846
+    :git: https://github.com/uber/RIBs.git
 
 SPEC CHECKSUMS:
   RIBs: dd8df1129289d51ed4fec6e2127613d9eaba204e
@@ -33,6 +39,6 @@ SPEC CHECKSUMS:
   RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
 
-PODFILE CHECKSUM: bbf323a3f83d5da5d9787c0852a90b4ba57490e6
+PODFILE CHECKSUM: 379066fb2d443b3201abc4fd21be62b060d53ff7
 
 COCOAPODS: 1.11.3

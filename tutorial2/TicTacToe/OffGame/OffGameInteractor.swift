@@ -2,7 +2,7 @@
 //  OffGameInteractor.swift
 //  TicTacToe
 //
-//  Created by A11548 on 2022/07/13.
+//  Created by A11548 on 2022/07/14.
 //  Copyright © 2022 Uber. All rights reserved.
 //
 
@@ -20,7 +20,6 @@ protocol OffGamePresentable: Presentable {
 
 protocol OffGameListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-    func startTicTacToe()
 }
 
 final class OffGameInteractor: PresentableInteractor<OffGamePresentable>, OffGameInteractable, OffGamePresentableListener {
@@ -43,9 +42,5 @@ final class OffGameInteractor: PresentableInteractor<OffGamePresentable>, OffGam
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
-    }
-
-    func startTicTacToe() {
-        listener?.startTicTacToe()
     }
 }

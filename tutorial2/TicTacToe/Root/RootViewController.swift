@@ -47,4 +47,13 @@ final class RootViewController: UIViewController, RootPresentable, RootViewContr
     func present(viewController: ViewControllable) {
         present(viewController.uiviewController, animated: true, completion: nil)
     }
+
+    func dismiss(viewController: ViewControllable) {
+        if presentedViewController == viewController.uiviewController {
+            dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+extension RootViewController: LoggedInViewControllable {
 }
