@@ -19,6 +19,7 @@ protocol OffGamePresentable: Presentable {
 }
 
 protocol OffGameListener: AnyObject {
+    func startTicTacToe()
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
@@ -42,5 +43,9 @@ final class OffGameInteractor: PresentableInteractor<OffGamePresentable>, OffGam
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+
+    func startTicTacToe() {
+        listener?.startTicTacToe()
     }
 }
