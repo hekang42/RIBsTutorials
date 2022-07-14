@@ -4,11 +4,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'TicTacToe' do
-  pod 'RIBs', :path => '../../../'
-  pod 'SnapKit', '~> 4.0.0'
-  pod 'RxCocoa', '~> 6.0'
-end
-
-target 'TicTacToeTests' do
-    pod 'RIBs', :path => '../../../'
+  pod 'RIBs', :git => 'https://github.com/uber/RIBs.git', :branch => 'main'
+  pod 'SnapKit'
+  pod 'RxCocoa'
 end
