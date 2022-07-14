@@ -65,15 +65,26 @@ final class LoggedInRouter: Router<LoggedInInteractable>, LoggedInRouting {
     }
 
     func attachTicTacToe() {
-        if let currentChild = currentChild {
-            detachChild(currentChild)
-            viewController.dismiss(viewController: currentChild.viewControllable)
-            self.currentChild = nil
-        }
-
         let tictactoe = tictactoeBuilder.build(withListener: interactor)
         self.currentChild = tictactoe
         attachChild(tictactoe)
         viewController.present(viewController: tictactoe.viewControllable)
+    }
+
+    func routeToOffGame() {
+        detachCurrentChild()
+        attachOffGame()
+    }
+
+    func routeToTicTacToe() {
+        detachCurrentChild()
+        attachTicTacToe()
+    }
+
+    private func detachCurrentChild() {
+        if let currentChild = currentChild {
+            detachChild(currentChild)
+            viewController.dismiss(viewController: currentChild.viewControllable)
+        }
     }
 }
