@@ -20,7 +20,6 @@ import UIKit
 
 protocol TicTacToePresentableListener: AnyObject {
     func placeCurrentPlayerMark(atRow row: Int, col: Int)
-    func closeGame()
 }
 
 final class TicTacToeViewController: UIViewController, TicTacToePresentable, TicTacToeViewControllable {
@@ -50,18 +49,22 @@ final class TicTacToeViewController: UIViewController, TicTacToePresentable, Tic
         cell?.backgroundColor = playerType.color
     }
 
-    func announce(winner: PlayerType) {
+    func announce(winner: PlayerType?, withCompletionHandler handler: @escaping () -> ()) {
         let winnerString: String = {
-            switch winner {
-            case .player1:
-                return "Red"
-            case .player2:
-                return "Blue"
+            if let winner = winner {
+                switch winner {
+                case .player1:
+                    return "Red won!"
+                case .player2:
+                    return "Blue won!"
+                }
+            } else {
+                return "It's a draw!"
             }
         }()
-        let alert = UIAlertController(title: "\(winnerString) Won!", message: nil, preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close Game", style: UIAlertActionStyle.default) { [weak self] _ in
-            self?.listener?.closeGame()
+        let alert = UIAlertController(title: winnerString, message: nil, preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close Game", style: UIAlertActionStyle.default) { _ in
+            handler()
         }
         alert.addAction(closeAction)
         present(alert, animated: true, completion: nil)
